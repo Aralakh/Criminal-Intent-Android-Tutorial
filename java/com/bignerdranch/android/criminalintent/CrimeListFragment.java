@@ -1,5 +1,6 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.Format;
 import java.util.List;
 
 /**
@@ -21,6 +25,7 @@ import java.util.List;
 public class CrimeListFragment extends Fragment{
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private int mCurrentPosition = -1;
 
    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -28,8 +33,6 @@ public class CrimeListFragment extends Fragment{
 
        mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-       updateUI();
 
        return view;
    }
@@ -39,6 +42,7 @@ public class CrimeListFragment extends Fragment{
        private TextView mDateTextView;
        private Crime mCrime;
        private Button mRequiresPoliceButton;
+       private ImageView mSolvedImageView;
 
        public CrimeHolder(LayoutInflater inflater, ViewGroup parent, int viewType){
            super(inflater.inflate(viewType, parent, false));
@@ -46,13 +50,19 @@ public class CrimeListFragment extends Fragment{
 
            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+           mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
        }
 
        public void bind(Crime crime){
            mCrime = crime;
            mTitleTextView.setText(mCrime.getTitle());
-           mDateTextView.setText(mCrime.getDate().toString());
 
+           java.text.DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getActivity().getApplicationContext());
+           String formatDate = android.text.format.DateFormat.format("EEEE", mCrime.getDate()) + ", " + dateFormat.format(mCrime.getDate());
+           mDateTextView.setText(formatDate);
+           mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+
+           //only displays + activates the police button if a crime requires it
            if(crime.doesRequirePolice()){
                mRequiresPoliceButton = (Button) itemView.findViewById(R.id.crime_requires_police);
                mRequiresPoliceButton.setOnClickListener(new View.OnClickListener(){
@@ -66,7 +76,9 @@ public class CrimeListFragment extends Fragment{
 
        @Override
        public void onClick(View view){
-           Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+           mCurrentPosition = getAdapterPosition();
+           Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+           startActivity(intent);
        }
    }
 
@@ -105,11 +117,28 @@ public class CrimeListFragment extends Fragment{
        }
    }
 
-   private void updateUI(){
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI(mCurrentPosition);
+    }
+
+   private void updateUI(int position){
        CrimeLab crimeLab = CrimeLab.get(getActivity());
        List<Crime> crimes = crimeLab.getCrimes();
 
-       mAdapter = new CrimeAdapter(crimes);
-       mCrimeRecyclerView.setAdapter(mAdapter);
+       if(mAdapter == null) {
+           mAdapter = new CrimeAdapter(crimes);
+           mCrimeRecyclerView.setAdapter(mAdapter);
+       }else{
+           //update entire list
+           if(mCurrentPosition < 0) {
+               mAdapter.notifyDataSetChanged();
+           }else{
+               //update single list item
+               mAdapter.notifyItemChanged(mCurrentPosition);
+               mCurrentPosition = -1;
+           }
+       }
    }
 }
