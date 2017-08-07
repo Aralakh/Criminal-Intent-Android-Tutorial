@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,10 +19,13 @@ import java.util.UUID;
  */
 
 public class CrimePagerActivity extends AppCompatActivity {
+
     private static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
 
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
+    private Button mButtonFirstPage;
+    private Button mButtonLastPage;
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
@@ -59,6 +64,50 @@ public class CrimePagerActivity extends AppCompatActivity {
                 break;
             }
         }
+
+        //disable first/last buttons if you're on that current page
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
+                if(mViewPager.getCurrentItem() == 0){
+                    mButtonFirstPage.setVisibility(View.INVISIBLE);
+                }else{
+                    mButtonFirstPage.setVisibility(View.VISIBLE);
+                }
+
+                if(mViewPager.getCurrentItem() == (mCrimes.size()-1)){
+                    mButtonLastPage.setVisibility(View.INVISIBLE);
+                }else{
+                    mButtonLastPage.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //do nothing
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //do nothing
+            }
+        });
+
+        mButtonFirstPage = (Button) findViewById(R.id.first_page);
+        mButtonFirstPage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                mViewPager.setCurrentItem(0);
+            }
+        });
+
+        mButtonLastPage = (Button) findViewById(R.id.last_page);
+        mButtonLastPage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                mViewPager.setCurrentItem(mCrimes.size()-1);
+            }
+        });
 
     }
 
