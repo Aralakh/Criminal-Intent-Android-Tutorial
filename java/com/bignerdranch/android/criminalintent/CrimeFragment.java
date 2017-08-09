@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -128,10 +130,10 @@ public class CrimeFragment extends Fragment{
         }
 
     private void updateDate() {
-        mDateButton.setText(mCrime.getDate().toString());
+        mDateButton.setText(android.text.format.DateFormat.format("EEE, MMM d, ''yy", mCrime.getDate()));
     }
 
     private void updateTime(){
-        mTimeButton.setText(mCrime.getTime().toString());
+        mTimeButton.setText(android.text.format.DateFormat.format("hh:mm a", mCrime.getTime()));
     }
 }

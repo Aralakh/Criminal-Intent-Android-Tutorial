@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.text.Format;
 import java.util.List;
@@ -40,6 +42,7 @@ public class CrimeListFragment extends Fragment{
    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
        private TextView mTitleTextView;
        private TextView mDateTextView;
+       private TextView mTimeTextView;
        private Crime mCrime;
        private Button mRequiresPoliceButton;
        private ImageView mSolvedImageView;
@@ -50,6 +53,7 @@ public class CrimeListFragment extends Fragment{
 
            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+           mTimeTextView = (TextView) itemView.findViewById(R.id.crime_time);
            mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
        }
 
@@ -60,6 +64,7 @@ public class CrimeListFragment extends Fragment{
            java.text.DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getActivity().getApplicationContext());
            String formatDate = android.text.format.DateFormat.format("EEEE", mCrime.getDate()) + ", " + dateFormat.format(mCrime.getDate());
            mDateTextView.setText(formatDate);
+           mTimeTextView.setText(android.text.format.DateFormat.format("hh:mm a", mCrime.getTime()));
            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
 
            //only displays + activates the police button if a crime requires it
