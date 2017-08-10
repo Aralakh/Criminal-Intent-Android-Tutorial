@@ -7,6 +7,16 @@
     <string name="crime_requires_police">Contact Police</string>
     <string name="last_button">Last Page</string>
     <string name="first_button">First Page</string>
+    <string name="empty_view">There are no crimes</string>
     <string name="date_picker_title">Date of crime:</string>
     <string name="time_picker_title">Time of crime:</string>
+    <string name="new_crime">New Crime</string>
+    <string name="remove_crime">Remove Crime</string>
+    <string name="show_subtitle">Show subtitle</string>
+    <string name="hide_subtitle">Hide subtitle</string>
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
+
 </resources>

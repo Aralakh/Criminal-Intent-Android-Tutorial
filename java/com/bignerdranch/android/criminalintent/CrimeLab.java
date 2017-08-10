@@ -23,16 +23,15 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
-    private CrimeLab(Context context){
+    public void addCrime(Crime c){
+        mCrimes.put(c.getId(), c);
+    }
 
+    public void removeCrime(Crime c){
+        mCrimes.remove(c.getId());
+    }
+    private CrimeLab(Context context){
         mCrimes = new LinkedHashMap<>();
-        for(int i = 1; i < 101; i++){
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); //every other one
-            crime.setRequiresPolice(i % 5 == 0); //every fifth
-            mCrimes.put(crime.getId(), crime);
-        }
     }
 
     public List<Crime> getCrimes(){

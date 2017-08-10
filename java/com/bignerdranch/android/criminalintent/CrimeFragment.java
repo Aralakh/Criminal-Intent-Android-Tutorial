@@ -9,6 +9,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,6 +55,7 @@ public class CrimeFragment extends Fragment{
         super.onCreate(savedInstanceState);
         UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -112,22 +116,41 @@ public class CrimeFragment extends Fragment{
         return v;
     }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data){
-            if(resultCode != Activity.RESULT_OK){
-               return;
-            }
-            if(requestCode == REQUEST_DATE){
-                Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-                mCrime.setDate(date);
-                updateDate();
-            }
-            if(requestCode == REQUEST_TIME){
-                Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                mCrime.setTime(time);
-                updateTime();
-            }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode != Activity.RESULT_OK){
+           return;
         }
+        if(requestCode == REQUEST_DATE){
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setDate(date);
+            updateDate();
+        }
+        if(requestCode == REQUEST_TIME){
+            Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mCrime.setTime(time);
+            updateTime();
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.remove_crime:
+                CrimeLab.get(getActivity()).removeCrime(mCrime);
+                getActivity().finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void updateDate() {
         mDateButton.setText(android.text.format.DateFormat.format("EEE, MMM d, ''yy", mCrime.getDate()));
