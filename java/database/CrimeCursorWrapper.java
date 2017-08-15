@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.bignerdranch.android.criminalintent.Crime;
+import database.CrimeDbSchema.CrimeTable;
 
 import java.util.Date;
 import java.util.UUID;
@@ -18,12 +19,12 @@ public class CrimeCursorWrapper extends CursorWrapper{
     }
 
     public Crime getCrime(){
-        String uuidString = getString(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.UUID));
-        String title = getString(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.TITLE));
-        long date = getLong(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.DATE));
-        long time = getLong(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.TIME));
-        int isSolved = getInt(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.SOLVED));
-        int requiresPolice = getInt(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.POLICE));
+        String uuidString = getString(getColumnIndex(CrimeTable.Cols.UUID));
+        String title = getString(getColumnIndex(CrimeTable.Cols.TITLE));
+        long date = getLong(getColumnIndex(CrimeTable.Cols.DATE));
+        long time = getLong(getColumnIndex(CrimeTable.Cols.TIME));
+        int isSolved = getInt(getColumnIndex(CrimeTable.Cols.SOLVED));
+        int requiresPolice = getInt(getColumnIndex(CrimeTable.Cols.POLICE));
 
         Crime crime = new Crime(UUID.fromString(uuidString));
         crime.setTitle(title);
