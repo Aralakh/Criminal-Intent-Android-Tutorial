@@ -31,14 +31,15 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
-    public void addCrime(Crime c){
-        ContentValues values = getContentValues(c);
+    public void addCrime(Crime crime){
+        ContentValues values = getContentValues(crime);
 
         mDatabase.insert(CrimeTable.NAME, null, values);
     }
 
-    public void removeCrime(Crime c){
-        return;
+    public void removeCrime(Crime crime){
+
+        mDatabase.delete(CrimeTable.NAME, CrimeTable.Cols.UUID + " = ?", new String[]{crime.getId().toString()});
     }
 
     public void updateCrime(Crime crime){
