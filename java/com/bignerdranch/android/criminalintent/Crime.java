@@ -80,4 +80,8 @@ public class Crime {
     public boolean doesRequirePolice(){ return mRequiresPolice; }
 
     public void setRequiresPolice(boolean required){ mRequiresPolice = required; }
+
+    public String getPhotoFilename(){
+        return "IMG_" + getId().toString() + ".jpg";
+    }
 }
