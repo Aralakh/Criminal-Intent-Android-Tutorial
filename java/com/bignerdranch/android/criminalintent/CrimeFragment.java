@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 
@@ -207,7 +208,8 @@ public class CrimeFragment extends Fragment{
 
         if(mCrime.getSuspect() != null){
             mSuspectButton.setText(mCrime.getSuspect());
-            mCallSuspectButton.setText("Call " + mCrime.getSuspect());
+            String suspect = getString(R.string.call_suspect_set, mCrime.getSuspect());
+            mCallSuspectButton.setText(suspect);
         }
 
         PackageManager packageManager = getActivity().getPackageManager();
@@ -307,7 +309,8 @@ public class CrimeFragment extends Fragment{
                 updateCrime();
 
                 mSuspectButton.setText(suspect);
-                mCallSuspectButton.setText("Call " + suspect);
+                suspect = getString(R.string.call_suspect_set, suspect);
+                mCallSuspectButton.setText(suspect);
             }finally{
                 c.close();
             }
@@ -366,11 +369,13 @@ public class CrimeFragment extends Fragment{
     }
 
     private void updateDate() {
-        mDateButton.setText(android.text.format.DateFormat.format("EEE, MMM d, ''yy", mCrime.getDate()));
+        String format = DateFormat.getBestDateTimePattern(Locale.getDefault(), "EEE, MMM d, ''yy");
+        mDateButton.setText(android.text.format.DateFormat.format(format, mCrime.getDate()));
     }
 
     private void updateTime(){
-        mTimeButton.setText(android.text.format.DateFormat.format("hh:mm a", mCrime.getTime()));
+        String format = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hh:mm a");
+        mTimeButton.setText(android.text.format.DateFormat.format(format, mCrime.getTime()));
     }
 
     private String getCrimeReport(){

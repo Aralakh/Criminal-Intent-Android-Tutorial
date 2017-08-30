@@ -4,6 +4,7 @@
     <string name="crime_title_label">Title</string>
     <string name="crime_details_label">Details</string>
     <string name="crime_solved_label">Solved</string>
+    <string name="crime_police_label">Police required</string>
     <string name="crime_requires_police">Contact Police</string>
     <string name="last_button">Last Page</string>
     <string name="first_button">First Page</string>
@@ -27,6 +28,8 @@
     <string name="crime_report_suspect">The suspect is %s</string>
     <string name="crime_report_subject">CriminalIntent Crime Report</string>
     <string name="send_report">Send report via</string>
+    <string name="call_suspect_label">Call Suspect</string>
+    <string name="call_suspect_set">Call %s</string>
 
 
 </resources>

@@ -85,7 +85,7 @@
             android:id="@+id/crime_police"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Police Required"/>
+            android:text="@string/crime_police_label"/>
 
         <Button
             android:id="@+id/crime_suspect"
@@ -103,7 +103,7 @@
             android:id="@+id/call_suspect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Call Suspect"/>
+            android:text="@string/call_suspect_label"/>
 
     </LinearLayout>
 
