@@ -311,6 +311,7 @@ public class CrimeFragment extends Fragment{
                 mSuspectButton.setText(suspect);
                 suspect = getString(R.string.call_suspect_set, suspect);
                 mCallSuspectButton.setText(suspect);
+                mCallSuspectButton.setContentDescription(getString(R.string.crime_suspect_set_description));
             }finally{
                 c.close();
             }
@@ -345,9 +346,12 @@ public class CrimeFragment extends Fragment{
     public void updatePhotoView(){
         if(mPhotoFile == null || !mPhotoFile.exists()){
             mPhotoView.setImageDrawable(null);
+            mPhotoView.setContentDescription(getString(R.string.crime_photo_no_image_description));
+
         }else{
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);
+            mPhotoView.setContentDescription(getString(R.string.crime_photo_image_description));
         }
     }
 
@@ -371,11 +375,13 @@ public class CrimeFragment extends Fragment{
     private void updateDate() {
         String format = DateFormat.getBestDateTimePattern(Locale.getDefault(), "EEE, MMM d, ''yy");
         mDateButton.setText(android.text.format.DateFormat.format(format, mCrime.getDate()));
+        mDateButton.setContentDescription(getString(R.string.crime_date_set_description));
     }
 
     private void updateTime(){
         String format = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hh:mm a");
         mTimeButton.setText(android.text.format.DateFormat.format(format, mCrime.getTime()));
+        mTimeButton.setContentDescription(getString(R.string.crime_time_set_description));
     }
 
     private String getCrimeReport(){

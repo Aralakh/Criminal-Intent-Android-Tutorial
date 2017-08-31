@@ -108,10 +108,14 @@ public class CrimeListFragment extends Fragment{
            mTimeTextView.setText(android.text.format.DateFormat.format("hh:mm a", mCrime.getTime()));
 
            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+           if(mSolvedImageView.getVisibility() == View.VISIBLE){
+               mSolvedImageView.setContentDescription(getString(R.string.crime_solved_label));
+           }
 
            //only displays + activates the police button if a crime requires it
            if(crime.doesRequirePolice()){
                mRequiresPoliceButton = (Button) itemView.findViewById(R.id.crime_requires_police);
+               mRequiresPoliceButton.setContentDescription(getString(R.string.crime_requires_police));
                mRequiresPoliceButton.setOnClickListener(new View.OnClickListener(){
                    @Override
                    public void onClick(View view){

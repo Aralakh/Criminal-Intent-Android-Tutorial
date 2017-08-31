@@ -30,6 +30,15 @@
     <string name="send_report">Send report via</string>
     <string name="call_suspect_label">Call Suspect</string>
     <string name="call_suspect_set">Call %s</string>
+    <string name="crime_photo_button_description">Take photo of crime scene</string>
+    <string name="crime_photo_no_image_description">Crime scene photo (not set)</string>
+    <string name="crime_photo_image_description">Crime scene photo (set)</string>
+    <string name="crime_date_set_description">Date of crime (set)</string>
+    <string name="crime_date_no_description">Choose date of the crime (not set)</string>
+    <string name="crime_time_no_description">Choose time of the crime (not set)</string>
+    <string name="crime_time_set_description">Time of crime (set)</string>
+    <string name="crime_suspect_no_description">Choose suspect (not set)</string>
+    <string name="crime_suspect_set_description">Suspect (set)</string>
 
 
 </resources>
