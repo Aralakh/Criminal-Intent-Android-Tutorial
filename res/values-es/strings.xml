@@ -28,4 +28,6 @@
     <string name="call_suspect_label">Llamar a sospechoso</string>
     <string name="crime_requires_police">Contactar con la policía</string>
     <string name="call_suspect_set">LLamar a %s</string>
+    <string name="last_button">Última página</string>
+    <string name="first_button">Primera página</string>
 </resources>

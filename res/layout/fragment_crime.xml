@@ -71,17 +71,26 @@
             android:layout_height="wrap_content"
             android:text="@string/crime_details_label"/>
 
-        <Button
-            android:id="@+id/crime_date"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/crime_date_no_description"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/crime_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/crime_time_no_description"/>
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/crime_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/crime_date_label"/>
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/crime_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/crime_time_label"/>
+
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/crime_solved"
@@ -97,12 +106,19 @@
             android:minHeight="48dp"
             android:text="@string/crime_police_label"/>
 
+        <TextView
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crime_suspect_text"
+            android:labelFor="@+id/crime_suspect"/>
+
         <Button
             android:id="@+id/crime_suspect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/crime_suspect_text"
-            android:contentDescription="@string/crime_suspect_no_description"/>
+            android:contentDescription="@string/crime_suspect_text"/>
 
         <Button
             android:id="@+id/crime_report"
